@@ -66,9 +66,31 @@ The following should then be displayed in the Terminal:
 
 This means that the Memtest is finished and all addresses up to 0x300 was correctly tested.
 
+### Installing an assembler
+A good toolchain for 6502 is the cc65-toolchain https://cc65.github.io/
+
+#### Windows
+For windows there is a snapshot that can be downloaded. Just unpack and set your PATH-parameter to the bin-directory.
+#### Mac
+For Mac you need to download and compile the sources yourself. 
+* Download or Clone the sources from https://github.com/cc65/cc65 
+* Go to directory
+* type make
+
+This will build everything and create a bin directory with binaries needed. 
+* Include the bin-directory in your PATH-parameter by including this in your .zshrc-file
 
 
+    export CC65_HOME="/{path to your where ypu downloaded cc65}"
+    export PATH="${CC65_HOME}/bin:$PATH"
 
+Test the installation by opening a fresh commandprompt/shell and type ca65+ENTER, which will get you a response
+
+    ca65: No input files
+
+This is correct since we didn't supply any source code files at this stage, but confirms that ca65 is installed correctly and we are ready to start coding.
+
+## Your first program
 
 
 

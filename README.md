@@ -50,7 +50,7 @@ We will first try to upload and run a memory test program, From the first book o
 * Enter L (Capital L), (Dont press any other key after L)
 * Open Sendfile dialog in your TerminalProgram. Select the file [./memorytest/memorytest.ptp](./memorytest/memorytest.ptp) 
 And send the file as raw/binary content.
-* You will see a lot of Hexformated output in the terminal. This is a Motorola S-Record format. After a while the upload stops and the PAL-1 is showing the adress/value promt again, showing that the upload is finished. 
+* You will see a lot of Hexformated output in the terminal. This is the MOS PaperTape format. After a while the upload stops and the PAL-1 is showing the adress/value promt again, showing that the upload is finished. 
 
 Lets test page 01 to page 02 (adress 0x100-0x2FF), following the instructions in memorytest.txt
 * type 0000+SPACE
@@ -64,7 +64,7 @@ The following should then be displayed in the Terminal:
     KIM
     0300 00
 
-This means that the Memtest is finished and all addresses up to 0x300 was correctly tested.
+This means that the Memtest is finished and all addresses up to 0x300 was correctly tested. If there was a memory fault the program stops and displays that address instead.
 
 ### Installing an assembler
 A good toolchain for 6502 is the cc65-toolchain https://cc65.github.io/
@@ -91,6 +91,13 @@ Test the installation by opening a fresh commandprompt/shell and type ca65+ENTER
 This is correct since we didn't supply any source code files at this stage, but confirms that ca65 is installed correctly and we are ready to start coding.
 
 ## Your first program
+
+As out first program we will develop the "Do Nothing Program". But before starting, lets do a little reading about machinecode for 6502, the CPU in PAL-1. 
+Here is a good starting point http://retro.hansotten.nl/uploads/books/machinecodebeginners.pdf. read this at least up until page 19 before we do our little do nothing program.
+
+Then follow this tutorial [The Do nothing program](./theDoNothingProgram/README.md)
+
+
 
 
 

@@ -1,0 +1,12 @@
+ca65 V2.19 - Git 700c01fa8
+Main file   : donothing.s
+Current file: donothing.s
+
+000000r 1               .setcpu "6502"
+000000r 1               .segment "CODE"
+000000r 1               .org	$0200		; Where program will be loaded
+000200  1               
+000200  1  EA           START:          NOP
+000201  1  4C 00 02                     JMP START
+000204  1               
+000204  1               

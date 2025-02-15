@@ -97,7 +97,11 @@ Here is a good starting point http://retro.hansotten.nl/uploads/books/machinecod
 
 Then follow this tutorial [The Do nothing program](./theDoNothingProgram/README.md)
 
+## The Hex LED display
 
+In this tutorial we learn how to display a character on the LED-display. This will require som electronics understanding and some digging into the datasheet of the W65C22 circuit also called VIA (Versatile Interface Adapter).
+
+[LED display tutorial](./leddisplay/README.md)
 
 
 

@@ -92,7 +92,7 @@ This is correct since we didn't supply any source code files at this stage, but 
 
 ## Your first program
 
-As out first program we will develop the "Do Nothing Program". But before starting, lets do a little reading about machinecode for 6502, the CPU in PAL-1. 
+As our first program we will develop the "Do Nothing Program". But before starting, lets do a little reading about machinecode for 6502, the CPU in PAL-1. 
 Here is a good starting point http://retro.hansotten.nl/uploads/books/machinecodebeginners.pdf. read this at least up until page 19 before we do our little do nothing program.
 
 Then follow this tutorial [The Do nothing program](./theDoNothingProgram/README.md)
@@ -103,6 +103,11 @@ In this tutorial we learn how to display a character on the LED-display. This wi
 
 [LED display tutorial](./leddisplay/README.md)
 
+## The Spinner
+
+In this tutorial we will learn how to use subroutines to display and use the LED to display som motion!
+
+[Spinner tutorial](../spinner/README.md)
 
 
 

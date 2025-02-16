@@ -96,7 +96,7 @@ convert the .bin into ptp by running
 * You will see a lot of Hexformated output in the terminal.
 
 Run the program
-* type 0200+SPACE, to set the address to 0x0200, out start address, The PAL-1 shows
+* type 0200+SPACE, to set the address to 0x0200, our start address, The PAL-1 shows
 
 
     0200 EA

@@ -120,15 +120,12 @@ in the sourcecode folder, which should produce an output like this:
 * Press RS on PAL-1
 * Press Enter in Terminal
 * Enter L (Capital L), (Dont press any other key after L)
-* Open Sendfile dialog in your TerminalProgram. Select the file [./donothing.ptp](./donothing.ptp)
+* Open Sendfile dialog in your TerminalProgram. Select the file [./leddisplay.ptp](./leddisplay.ptp)
   And send the file as raw/binary content.
 * You will see a lot of Hexformated output in the terminal.
 
 Run the program
-* type 0200+SPACE, to set the address to 0x0200, out start address, The PAL-1 shows
-
-
-    0200 EA
+* type 0200+SPACE, to set the address to 0x0200, our start address.
 * press G (capital G) (to run the program from the current address)
 
 The PAL-1 will not show anything in the serial-terminal. But you should se three bars of the first LED-display if everything worked out?

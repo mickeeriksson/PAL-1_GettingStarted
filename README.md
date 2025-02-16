@@ -107,7 +107,7 @@ In this tutorial we learn how to display a character on the LED-display. This wi
 
 In this tutorial we will learn how to use subroutines to display and use the LED to display som motion!
 
-[Spinner tutorial](../spinner/README.md)
+[Spinner tutorial](./spinner/README.md)
 
 
 

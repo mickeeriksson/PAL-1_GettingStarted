@@ -31,7 +31,7 @@ Current file: spinner.s
 000218  1  20 43 02                     JSR DELAY           ; Wait a little bit
 00021B  1               
 00021B  1  C8                           INY                 ; Increase Y (Y=Y+1)
-00021C  1  C9 10                        CMP #16             ; Compare result of last instruction with 16 (6+6+2+2 segments)
+00021C  1  C0 10                        CPY #16             ; Compare result of last instruction with 16 (6+6+2+2 segments)
 00021E  1  90 EC                        BCC NEXTSEG         ; Jump to NEXTSEG if Y<16
 000220  1               
 000220  1  4C 0A 02                     JMP SPIN            ; Else restart SPIN Sequence
@@ -41,7 +41,7 @@ Current file: spinner.s
 000227  1  10 12 12 12  
 00022B  1  12 10 0E 0C  
 000233  1               SEGLIST:
-000233  1  01 01 01 01  	.byte	$01,$01,$01,$01,$01,$01,$02,$04,$08,$08,$08,$08,$08,$08,$10,$08
+000233  1  01 01 01 01  	.byte	$01,$01,$01,$01,$01,$01,$02,$04,$08,$08,$08,$08,$08,$08,$10,$20
 000237  1  01 01 02 04  
 00023B  1  08 08 08 08  
 000243  1               

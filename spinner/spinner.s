@@ -27,7 +27,7 @@ NEXTSEG:
                 JSR DELAY           ; Wait a little bit
 
                 INY                 ; Increase Y (Y=Y+1)
-                CMP #16             ; Compare result of last instruction with 16 (6+6+2+2 segments)
+                CPY #16             ; Compare result of last instruction with 16 (6+6+2+2 segments)
                 BCC NEXTSEG         ; Jump to NEXTSEG if Y<16
 
                 JMP SPIN            ; Else restart SPIN Sequence
@@ -35,7 +35,7 @@ NEXTSEG:
 LEDLIST:
 	.byte	$08,$0A,$0C,$0E,$10,$12,$12,$12,$12,$10,$0E,$0C,$0A,$08,$08,$08
 SEGLIST:
-	.byte	$01,$01,$01,$01,$01,$01,$02,$04,$08,$08,$08,$08,$08,$08,$10,$08
+	.byte	$01,$01,$01,$01,$01,$01,$02,$04,$08,$08,$08,$08,$08,$08,$10,$20
 
 
 DELAY:                              ; A simple delay routine

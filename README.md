@@ -115,6 +115,11 @@ Lets prepare for some longer and more complex programs by separating the LED-ele
 
 [Framebuffer tutorial](./framebuffer/README.md)
 
+## The Keyboard
+
+Say for example we want to develop a game? Or maybe a controlpanel for a constitution class starship? We need some kind of keyboard handling. In this tutorial we learn have to detect a key-press on the PAL-1 using the build in ROM in the RIOT (EPROM in PAL-1). 
+
+[Keyboard tutorial](./keyboard/README.md)
 
 
 

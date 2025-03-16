@@ -1,0 +1,137 @@
+ca65 V2.19 - Git 700c01fa8
+Main file   : keyboard.s
+Current file: keyboard.s
+
+000000r 1               .setcpu "6502"
+000000r 1               .segment "CODE"
+000000r 1               
+000000r 1               .org	$0200		                ; Where program will be loaded
+000200  1               
+000200  1               
+000200  1               VIA_SAD	    := $1740		        ; A side Data
+000200  1               VIA_PADD	:= $1741		        ; A side Data Direction
+000200  1               VIA_SBD	    := $1742		        ; B side Data
+000200  1               VIA_PBDD	:= $1743		        ; B side Data Direction
+000200  1               
+000200  1               ; and the GETKEY routine to poll the keyboard
+000200  1               GETKEY     := $1F6A
+000200  1               
+000200  1               START:                              ; No Operation, this does nothing
+000200  1               
+000200  1               INIT:
+000200  1  D8                           CLD
+000201  1               
+000201  1               LOOP:
+000201  1  20 50 02                     JSR LED_REFRESH
+000204  1               
+000204  1  20 6A 1F                     JSR GETKEY
+000207  1               
+000207  1  C9 05                        CMP #$5
+000209  1  F0 13                        BEQ KEY_5
+00020B  1  C9 01                        CMP #$1             ; DOWN
+00020D  1  F0 19                        BEQ KEY_1
+00020F  1  C9 09                        CMP #$9             ; UP
+000211  1  F0 1F                        BEQ KEY_9
+000213  1  C9 04                        CMP #$4             ; LEFT
+000215  1  F0 25                        BEQ KEY_4
+000217  1  C9 06                        CMP #$6             ; RIGHT
+000219  1  F0 2B                        BEQ KEY_6
+00021B  1               
+00021B  1  4C 01 02                     JMP LOOP
+00021E  1               
+00021E  1               KEY_5:                              ; CENTER
+00021E  1  A9 40                        LDA #$40
+000220  1  A0 02                        LDY #$02
+000222  1  99 91 02                     STA FB,Y
+000225  1  4C 01 02                     JMP LOOP
+000228  1               
+000228  1               KEY_1:                              ; UP
+000228  1  A9 08                        LDA #$08
+00022A  1  A0 02                        LDY #$02
+00022C  1  99 91 02                     STA FB,Y
+00022F  1  4C 01 02                     JMP LOOP
+000232  1               
+000232  1               KEY_9:                              ; DOWN
+000232  1  A9 01                        LDA #$01
+000234  1  A0 02                        LDY #$02
+000236  1  99 91 02                     STA FB,Y
+000239  1  4C 01 02                     JMP LOOP
+00023C  1               
+00023C  1               KEY_4:                              ; LEFT
+00023C  1  A9 30                        LDA #$30
+00023E  1  A0 02                        LDY #$02
+000240  1  99 91 02                     STA FB,Y
+000243  1  4C 01 02                     JMP LOOP
+000246  1               
+000246  1               KEY_6:                              ; RIGHT
+000246  1  A9 06                        LDA #$06
+000248  1  A0 02                        LDY #$02
+00024A  1  99 91 02                     STA FB,Y
+00024D  1  4C 01 02                     JMP LOOP
+000250  1               
+000250  1               
+000250  1               
+000250  1               ;
+000250  1               ;   Refresh the LED segments from the Framebuffer FB
+000250  1               ;   Destroys nothing
+000250  1               ;
+000250  1               LED_REFRESH:
+000250  1                                                   ; First save current A,X,Y onto Stack
+000250  1  48                           PHA                 ; Push A to the stack
+000251  1  98                           TYA                 ; Store Y into A (A=Y)
+000252  1  48                           PHA                 ; Push A to the stack, which is the value of Y
+000253  1  8A                           TXA                 ; Store X into A (X=A)
+000254  1  48                           PHA                 ; Push A to the stack, which is the value of X
+000255  1               
+000255  1               VIA_LCD_OUT:                        ; Set port A to output Mode (for LED)
+000255  1  A9 7F                        LDA #$7F	        ; Set PA0..PA6 as output, (PA7 as input)
+000257  1  8D 41 17                     STA VIA_PADD
+00025A  1  A9 1E                        LDA #$1E            ; Set PB0..PB4 as output, (PB5..PB7 as input)
+00025C  1  8D 43 17                     STA VIA_PBDD
+00025F  1               
+00025F  1  A0 00                        LDY #$00            ; Start with listentry index=0 (first value)
+000261  1               NEXTSEG:
+000261  1  A9 00                        LDA #$00            ; Disable output
+000263  1  8D 40 17                     STA VIA_SAD         ; Store it into Port A (to select Segement)
+000266  1               
+000266  1  B9 97 02                     LDA LEDSEL,Y        ; load led-selector value at address LEDSEL + the value in Y-register into Accumulator-register
+000269  1  8D 42 17                     STA VIA_SBD         ; Store it into Port B (to select LED)
+00026C  1  B9 91 02                     LDA FB,Y            ; load the frambuffer value at address FB + the value in Y-register into Accumulator-register
+00026F  1  8D 40 17                     STA VIA_SAD         ; Store it into Port A (to select Segement)
+000272  1               
+000272  1  A2 0F                        LDX #$F             ; A short Delay to let fully load the LED
+000274  1  CA           @delay:         DEX
+000275  1  D0 FD                        BNE @delay
+000277  1               
+000277  1  C8                           INY                 ; Increase Y (Y=Y+1)
+000278  1  C0 06                        CPY #6              ; Compare result of last instruction with 6 (6 segments)
+00027A  1  90 E5                        BCC NEXTSEG         ; Jump to NEXTSEG if Y<6
+00027C  1                               ;RTS
+00027C  1               
+00027C  1               VIA_KEYB_IN:                        ; Restore port A to input Mode (for keyboard)
+00027C  1  A9 00                        LDA #$00
+00027E  1  8D 42 17                     STA VIA_SBD         ; No LED Selected
+000281  1               
+000281  1  A9 00                        LDA #$00	        ; Set PA0..PA7 as input
+000283  1  8D 41 17                     STA VIA_PADD
+000286  1  A9 1E                        LDA #$1E            ; Set PB0..PB4 as output, (PB5..PB7 as input)
+000288  1  8D 43 17                     STA VIA_PBDD
+00028B  1               
+00028B  1                                                   ; Restore A,X,Y from stack in reverse order
+00028B  1  68           	            PLA                 ; Pop stack into A
+00028C  1  AA           	            TAX                 ; Store A into X (X=A)
+00028D  1  68           	            PLA                 ; Pop stack into A
+00028E  1  A8           	            TAY                 ; Store A into Y (Y=A)
+00028F  1  68           	            PLA                 ; Pop stack into A
+000290  1  60           	            RTS                 ; Return, and continue with next instruction after the JSR that got us here!
+000291  1               
+000291  1               
+000291  1               FB:
+000291  1  00 00 00 00  	.byte	$00,$00,$00,$00,$00,$00
+000295  1  00 00        
+000297  1               LEDSEL:
+000297  1  08 0A 0C 0E  	.byte	$08,$0A,$0C,$0E,$10,$12
+00029B  1  10 12        
+00029D  1               
+00029D  1               
+00029D  1               

@@ -9,12 +9,11 @@ VIA_PADD	:= $1741		        ; A side Data Direction
 VIA_SBD	    := $1742		        ; B side Data
 VIA_PBDD	:= $1743		        ; B side Data Direction
 
-;ANIM_STEP_DATA_PTR	:= $FB              ; Pointer to current Warp Step Buffer
-WARP_STEP	    := $40	            ; Zero page variable to hold current warp step
-                                    ; rom uses ZP 0xEF-0xFF
+WARP_STEP	:= $40	                ; Zero page variable to hold current warp step
+                                    ; rom uses ZP 0xEF-0xFF, so stay out of those
 
 
-START:                              ; No Operation, this does nothing
+START:                              ; No Operation, this does nothing but tell us this is the START :-)
 
 INIT:
                 CLD
@@ -114,7 +113,7 @@ VIA_KEYB_IN:                        ; Restore port A to input Mode (for keyboard
 FB_CLEAR:
                 LDY #$00            ; Start with pos 0
 @next_pos:
-                LDA #$00            ; Clear all segments at curret pos
+                LDA #$00            ; Clear all segments at current pos
                 STA FB,Y            ; in FB with index Y
 
                 INY                 ; Increase Y (Y=Y+1)

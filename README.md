@@ -109,6 +109,12 @@ In this tutorial we will learn how to use subroutines to display and use the LED
 
 [Spinner tutorial](./spinner/README.md)
 
+## The Framebuffer
+
+Lets prepare for some longer and more complex programs by separating the LED-electronics from the other parts by defining a framebuffer. To test the framebuffer we will be testing a animation of a Warp 8 capable starship like the NCC-1701-A
+
+[Framebuffer tutorial](./framebuffer/README.md)
+
 
 
 

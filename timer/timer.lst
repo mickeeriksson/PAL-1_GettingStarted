@@ -1,0 +1,49 @@
+ca65 V2.19 - Git 700c01fa8
+Main file   : timer.s
+Current file: timer.s
+
+000000r 1               .setcpu "6502"
+000000r 1               .segment "CODE"
+000000r 1               
+000000r 1               .org	$0200		                ; Where program will be loaded
+000200  1               
+000200  1               C1024E      := $174F           ; Div by 1024 counter, enable intr
+000200  1               SCANS       := $1F1F           ; SCANS ROM Routine
+000200  1               INCPT       := $1F63           ; INCPT ROM Routine
+000200  1               
+000200  1               TMR_CNT	    := $40	           ; Zero page variable to hold timer counter
+000200  1               
+000200  1               START:                              ; No Operation, this does nothing
+000200  1               
+000200  1  A9 17                        LDA #<INTSVC
+000202  1  8D FE 17                     STA $17FE
+000205  1  A9 02                        LDA #>INTSVC
+000207  1  8D FF 17                     STA $17FF
+00020A  1               
+00020A  1  A9 60                        LDA #$60
+00020C  1  85 40                        STA TMR_CNT
+00020E  1               
+00020E  1               
+00020E  1  A9 08                        LDA #$08
+000210  1  8D 4F 17                     STA C1024E
+000213  1               
+000213  1  58                           CLI
+000214  1               
+000214  1               
+000214  1               DISP:
+000214  1  4C 14 02                     JMP DISP
+000217  1               
+000217  1               INTSVC:
+000217  1  C6 40                        DEC TMR_CNT
+000219  1  D0 07                        BNE EXITINTSVC
+00021B  1  A9 60                        LDA #$60        ; if timer is 20 hz
+00021D  1  85 40                        STA TMR_CNT     ; reset counter to 0x14
+00021F  1  20 63 1F                     JSR INCPT
+000222  1               
+000222  1               EXITINTSVC:
+000222  1  20 1F 1F                     JSR SCANS
+000225  1  A9 08                        LDA #$08
+000227  1  8D 4F 17                     STA C1024E
+00022A  1  40                           RTI
+00022B  1               
+00022B  1               
